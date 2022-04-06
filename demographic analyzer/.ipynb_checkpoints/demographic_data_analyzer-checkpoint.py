@@ -34,11 +34,16 @@ def calculate_demographic_data(print_data=True):
     rich_percentage = round((num_min_workers / df[(df['hours-per-week'] == 1) & (df.salary == '>50K')].shape[0]), 1)
 
     # What country has the highest percentage of people that earn >50K?
-    #highest_earning_country = None
-    #highest_earning_country_percentage = None
+    # Creating a dataframe of highest earners to use in computation
+    df1 = df.loc[(df['salary'] == '>50K')]
+    
+    highest_earning_country = df1['native-country'].value_counts().index.tolist()[0]
+    highest_earning_country_percentage = round((df1['native-country'].value_counts()[0] / df1.shape[0]) *100, 1)
 
     # Identify the most popular occupation for those who earn >50K in India.
-    #top_IN_occupation = None
+    # Creating a dataframe of highest earners in India only
+    df2 = df1[df1['native-country'] == 'India']
+    top_IN_occupation = df2['occupation'].value_counts().index.tolist()[0]
 
     # DO NOT MODIFY BELOW THIS LINE
 
@@ -50,9 +55,9 @@ def calculate_demographic_data(print_data=True):
         print(f"Percentage without higher education that earn >50K: {lower_education_rich}%")
         print(f"Min work time: {min_work_hours} hours/week")
         print(f"Percentage of rich among those who work fewest hours: {rich_percentage}%")
-        #print("Country with highest percentage of rich:", highest_earning_country)
-        #print(f"Highest percentage of rich people in country: {highest_earning_country_percentage}%")
-        #print("Top occupations in India:", top_IN_occupation)
+        print("Country with highest percentage of rich:", highest_earning_country)
+        print(f"Highest percentage of rich people in country: {highest_earning_country_percentage}%")
+        print("Top occupations in India:", top_IN_occupation)
 
     return {
         'race_count': race_count,
@@ -62,6 +67,7 @@ def calculate_demographic_data(print_data=True):
         'lower_education_rich': lower_education_rich,
         'min_work_hours': min_work_hours,
         'rich_percentage': rich_percentage,
-        #'highest_earning_country': highest_earning_country,
-        #'highest_earning_country_percentage': highest_earning_country_percentage,'top_IN_occupation': top_IN_occupation
+        'highest_earning_country': highest_earning_country,
+        'highest_earning_country_percentage': highest_earning_country_percentage,
+        'top_IN_occupation': top_IN_occupation
     }
