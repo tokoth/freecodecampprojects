@@ -38,15 +38,15 @@ def calculate_demographic_data(print_data=True):
 
     # What country has the highest percentage of people that earn >50K?
     # Creating a dataframe of highest earners to use in computation
-    df1 = df.loc[(df['salary'] == '>50K')]
-    
-    highest_earning_country = df1['native-country'].value_counts().index.tolist()[0]
-    highest_earning_country_percentage = round((df1['native-country'].value_counts()[0] / df1.shape[0]) *100, 1)
+    df3 = df.loc[(df['salary'] == '>50K')]
+    df4 = round((df3['native-country'].value_counts() / df['native-country'].value_counts() *100), 1)
+    highest_earning_country = df4.idmax()
+    highest_earning_country_percentage = df4.max()
 
     # Identify the most popular occupation for those who earn >50K in India.
     # Creating a dataframe of highest earners in India only
-    df2 = df1[df1['native-country'] == 'India']
-    top_IN_occupation = df2['occupation'].value_counts().index.tolist()[0]
+    df5 = df3[df3['native-country'] == 'India']
+    top_IN_occupation = df5['occupation'].value_counts().index.tolist()[0]
 
     # DO NOT MODIFY BELOW THIS LINE
 
